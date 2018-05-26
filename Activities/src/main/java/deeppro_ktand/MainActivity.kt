@@ -5,21 +5,50 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import deeppro_ktand.ViewModel.LoginViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
-class MainActivity : AppCompatActivity() {
+var viewModel: LoginViewModel = LoginViewModel()
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        //setActivity()
+        //setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        loginButton.setOnClickListener { onClick(loginButton) }
+        signUpBtn.setOnClickListener{ onClick(signUpBtn) }
+        forgetPassowrdBtn.setOnClickListener { onClick(forgetPassowrdBtn) }
+
+    }
+
+    fun setActivity(){
+        setContentView(R.layout.activity_main)
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.loginButton -> {
+                println("Login Clicked")
+                viewModel.doLogin(usernameTextEdit.text.toString(),passwordTextEdit.text.toString())
+            }
+            R.id.signUpBtn -> {
+                println("SignUp Clicked")
+            }
+            R.id.forgetPassowrdBtn-> {
+                println("ForgetPassword Clicked")
+            }
+            else -> { //your code
+                println("Button Unidentified")
+
+            }
         }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
